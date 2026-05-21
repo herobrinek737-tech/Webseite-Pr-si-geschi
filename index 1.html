@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>South Dakota – Entdecke das Herz Amerikas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #1a3a5c;
+    --prairie: #c8860a;
+    --granite: #8b7355;
+    --badlands: #c4622d;
+    --pine: #2d5a3d;
+    --cream: #faf6ef;
+    --dark: #0f1a0f;
+    --gold: #e8a820;
+    --text: #2c2416;
+    --light-text: #5a4e3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* CUSTOM CURSOR */
+  #cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--prairie);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    mix-blend-mode: multiply;
+  }
+  #cursor-ring {
+    position: fixed;
+    width: 40px; height: 40px;
+    border: 2px solid var(--prairie);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
+    opacity: 0.6;
+  }
+  body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 20px; height: 20px; }
+  body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 60px; height: 60px; opacity: 0.3; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 20px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(250,246,239,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(200,134,10,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    transition: color 0.4s;
+    text-decoration: none;
+  }
+  nav.scrolled .nav-logo { color: var(--sky); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(250,246,239,0.85);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  nav.scrolled .nav-links a { color: var(--light-text); }
+  .nav-links a:hover { color: var(--prairie) !important; }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    background: linear-gradient(165deg, #0f2a45 0%, #1a4a6b 35%, #2d5a3d 70%, #1a3020 100%);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(120px, 20vw, 280px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    letter-spacing: -0.05em;
+    user-select: none;
+    white-space: nowrap;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-particles {
+    position: absolute; inset: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+  }
+  @keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 9vw, 120px);
+    font-weight: 900;
+    color: white;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-subtitle {
+    font-size: clamp(16px, 2vw, 21px);
+    color: rgba(255,255,255,0.7);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+  .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(232,168,32,0.4); }
+  .scroll-indicator {
+    position: absolute;
+    bottom: 36px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+  }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { position: relative; }
+
+  /* INTRO NUMBERS */
+  .stats-band {
+    background: var(--sky);
+    padding: 64px 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SCROLL REVEAL SYSTEM */
+  .reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-60px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(60px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* STICKY TEXT SECTION (Apple style) */
+  .sticky-section {
+    height: 400vh;
+    position: relative;
+  }
+  .sticky-inner {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: var(--dark);
+  }
+  .sticky-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    transition: opacity 0.6s;
+  }
+  .sticky-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(15,26,15,0.7), rgba(15,26,15,0.85));
+  }
+  .sticky-text {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 0 48px;
+    max-width: 900px;
+  }
+  .sticky-step {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    padding: 0 48px;
+    opacity: 0;
+    transition: opacity 0.6s;
+    pointer-events: none;
+  }
+  .sticky-step.active { opacity: 1; pointer-events: auto; }
+  .sticky-step-icon { font-size: 3.5rem; margin-bottom: 20px; }
+  .sticky-step h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 64px);
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .sticky-step p {
+    font-size: clamp(16px, 1.8vw, 20px);
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+  .sticky-progress {
+    position: absolute;
+    right: 40px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 10px;
+    z-index: 10;
+  }
+  .progress-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .progress-dot.active { background: var(--gold); transform: scale(1.5); }
+
+  /* CARD GRID */
+  .section-header {
+    text-align: center;
+    padding: 100px 48px 60px;
+  }
+  .section-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--prairie);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--sky);
+    letter-spacing: -0.02em;
+  }
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--light-text);
+    max-width: 580px;
+    margin: 16px auto 0;
+    line-height: 1.7;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 0 0 100px;
+  }
+  .card {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+    cursor: none;
+  }
+  .card-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .card:hover .card-bg { transform: scale(1.08); }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+    transition: background 0.4s;
+  }
+  .card:hover .card-overlay { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%); }
+  .card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 32px;
+    transform: translateY(0);
+    transition: transform 0.4s;
+  }
+  .card-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: white;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .card:hover .card-desc { max-height: 120px; }
+
+  /* Gradient backgrounds for cards */
+  .card-rushmore .card-bg { background: linear-gradient(135deg, #2c3e50, #4a6741, #8b7355); }
+  .card-badlands .card-bg { background: linear-gradient(135deg, #c4622d, #8b4513, #d4a76a); }
+  .card-wildlife .card-bg { background: linear-gradient(135deg, #2d5a3d, #1a4a2a, #4a7a2d); }
+  .card-deadwood .card-bg { background: linear-gradient(135deg, #3d2b1a, #6b4423, #8b6543); }
+  .card-crazy .card-bg { background: linear-gradient(135deg, #4a3520, #7a5533, #a07850); }
+  .card-caves .card-bg { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
+
+  /* SVG scene icons in cards */
+  .card-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+    transition: opacity 0.4s, transform 0.4s;
+    pointer-events: none;
+  }
+  .card:hover .card-icon { opacity: 0.1; transform: translate(-50%, -50%) scale(1.2); }
+
+  /* TIMELINE */
+  .timeline-section {
+    padding: 100px 48px;
+    background: linear-gradient(to bottom, var(--cream), #ede8df);
+  }
+  .timeline {
+    max-width: 800px;
+    margin: 60px auto 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 28px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--prairie), var(--sky));
+  }
+  .timeline-item {
+    display: flex; gap: 40px;
+    margin-bottom: 52px;
+    padding-left: 0;
+  }
+  .timeline-dot {
+    width: 58px; height: 58px; flex-shrink: 0;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--prairie);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    position: relative; z-index: 1;
+    box-shadow: 0 4px 16px rgba(200,134,10,0.2);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .timeline-item:hover .timeline-dot { transform: scale(1.15); border-color: var(--sky); }
+  .timeline-body { padding-top: 8px; }
+  .timeline-year {
+    font-size: 0.75rem;
+    color: var(--prairie);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .timeline-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--sky);
+    margin-bottom: 8px;
+  }
+  .timeline-body p {
+    font-size: 0.95rem;
+    color: var(--light-text);
+    line-height: 1.7;
+  }
+
+  /* FOOD SECTION */
+  .food-section {
+    padding: 100px 48px;
+    background: var(--sky);
+    overflow: hidden;
+  }
+  .food-section .section-title { color: white; }
+  .food-section .section-subtitle { color: rgba(255,255,255,0.7); }
+  .food-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding: 40px 0 20px;
+    scrollbar-width: none;
+    cursor: grab;
+  }
+  .food-scroll:active { cursor: grabbing; }
+  .food-scroll::-webkit-scrollbar { display: none; }
+  .food-card {
+    flex: 0 0 280px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 28px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, background 0.3s;
+  }
+  .food-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.14); }
+  .food-emoji { font-size: 2.5rem; margin-bottom: 16px; }
+  .food-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .food-origin {
+    font-size: 0.75rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .food-desc { font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+  /* ROUTE PLANNER */
+  .route-section {
+    padding: 100px 48px;
+    background: var(--cream);
+  }
+  .route-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    margin-top: 60px;
+  }
+  .route-day {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 20px 16px;
+    cursor: none;
+    transition: all 0.3s;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .route-day:hover, .route-day.active {
+    border-color: var(--prairie);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(200,134,10,0.2);
+  }
+  .route-day.active { background: var(--sky); }
+  .day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--prairie);
+    line-height: 1;
+  }
+  .route-day.active .day-num { color: var(--gold); }
+  .day-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--light-text);
+    margin: 4px 0 8px;
+  }
+  .route-day.active .day-label { color: rgba(255,255,255,0.6); }
+  .day-icon { font-size: 1.4rem; }
+  .route-detail {
+    margin-top: 40px;
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    display: none;
+  }
+  .route-detail.visible { display: block; animation: fadeUp 0.4s ease; }
+  .route-detail h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--sky);
+    margin-bottom: 12px;
+  }
+  .route-detail p { font-size: 1rem; color: var(--light-text); line-height: 1.8; max-width: 700px; }
+  .route-stops {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 20px;
+  }
+  .stop-badge {
+    background: #f0ebdf;
+    color: var(--sky);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  /* CLIMATE TABLE */
+  .climate-section {
+    padding: 100px 48px;
+    background: linear-gradient(135deg, #f7f2e8, #ede8df);
+  }
+  .climate-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+  }
+  .climate-card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    transition: transform 0.3s;
+  }
+  .climate-card:hover { transform: translateY(-6px); }
+  .climate-city {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--sky);
+    margin-bottom: 4px;
+  }
+  .climate-region {
+    font-size: 0.75rem;
+    color: var(--prairie);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .temp-bar { margin-bottom: 12px; }
+  .temp-label { font-size: 0.8rem; color: var(--light-text); margin-bottom: 4px; }
+  .temp-track {
+    height: 8px;
+    background: #e8e0d0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .temp-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(to right, var(--sky), var(--badlands));
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* TIPS BANNER */
+  .tips-section {
+    padding: 100px 48px;
+    background: var(--dark);
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+  }
+  .tip-card {
+    padding: 36px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .tip-card:hover {
+    border-color: var(--gold);
+    background: rgba(232,168,32,0.05);
+  }
+  .tip-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: rgba(232,168,32,0.2);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .tip-card h3 { font-size: 1.1rem; color: white; margin-bottom: 10px; font-weight: 600; }
+  .tip-card p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+  .tips-section .section-title { color: white; }
+  .tips-section .section-subtitle { color: rgba(255,255,255,0.6); }
+
+  /* FOOTER */
+  footer {
+    background: #080f08;
+    padding: 60px 48px;
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.85rem;
+  }
+  footer strong {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .stats-band { grid-template-columns: repeat(2,1fr); }
+    .cards-grid { grid-template-columns: 1fr; }
+    .card { height: 380px; }
+    .route-days { grid-template-columns: repeat(4,1fr); }
+    .climate-grid { grid-template-columns: repeat(2,1fr); }
+    .tips-grid { grid-template-columns: 1fr; }
+    .timeline-section, .food-section, .route-section, .climate-section, .tips-section { padding: 60px 24px; }
+    .section-header { padding: 60px 24px 40px; }
+    body { cursor: auto; }
+    #cursor, #cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">★ South Dakota</a>
+  <div class="nav-links">
+    <a href="#highlights">Highlights</a>
+    <a href="#history">Geschichte</a>
+    <a href="#food">Essen</a>
+    <a href="#route">Route</a>
+    <a href="#tipps">Tipps</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">SOUTH DAKOTA</div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">🌾 Der Mount Rushmore Staat · USA</p>
+    <h1 class="hero-title">Entdecke das<br><em>Herz</em> Amerikas</h1>
+    <p class="hero-subtitle">Riesige Prärien, geheimnisvolle Höhlen, wilde Bisons und Berge, die Geschichte erzählen – South Dakota ist ein Abenteuer für alle Sinne.</p>
+    <a href="#highlights" class="hero-cta">Jetzt entdecken →</a>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stat-item reveal">
+    <div class="stat-num">77.123</div>
+    <div class="stat-label">Quadratmeilen Fläche</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.1s">
+    <div class="stat-num">~910K</div>
+    <div class="stat-label">Einwohner</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.2s">
+    <div class="stat-num">2 Mrd. $</div>
+    <div class="stat-label">Tourismus pro Jahr</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.3s">
+    <div class="stat-num">7.242 ft</div>
+    <div class="stat-label">Black Elk Peak – höchster Punkt</div>
+  </div>
+</div>
+
+<!-- STICKY SCROLL SECTION -->
+<section class="sticky-section" id="highlights">
+  <div class="sticky-inner" id="stickyInner">
+    <div class="sticky-step active" data-step="0">
+      <div class="sticky-step-icon">🏔️</div>
+      <h2>Die Black Hills –<br>„Das Herz von Allem"</h2>
+      <p>Diese bewaldeten Berge sind für die Lakota-Indianer ein heiliger Ort. Sie nannten sie „Paha Sapa". Hier findest du den höchsten Punkt östlich der Rocky Mountains – den <strong style="color:var(--gold)">Black Elk Peak</strong> mit 2.207 Metern.</p>
+    </div>
+    <div class="sticky-step" data-step="1">
+      <div class="sticky-step-icon">🦬</div>
+      <h2>1.300 Bisons im<br>Custer State Park</h2>
+      <p>Der Park ist so groß wie viele Nationalparks! Auf der <strong style="color:var(--gold)">Wildlife Loop Road</strong> kannst du Bisons, Gabelböcke und Bergziegen aus dem Auto beobachten. Beim Roundup im September treiben Cowboys die Herde zusammen – echtes Western-Feeling!</p>
+    </div>
+    <div class="sticky-step" data-step="2">
+      <div class="sticky-step-icon">🪨</div>
+      <h2>Badlands –<br>Ein anderer Planet</h2>
+      <p>Die Badlands sehen aus wie eine Mondlandschaft. Wind und Regen haben über Millionen Jahre bizarre Felsformationen geschaffen. Hier wurden Fossilien von <strong style="color:var(--gold)">Mammuts, Schildkröten und Urzeitpferden</strong> gefunden.</p>
+    </div>
+    <div class="sticky-step" data-step="3">
+      <div class="sticky-step-icon">🚀</div>
+      <h2>Kalter Krieg unter<br>der Erde</h2>
+      <p>In den 1960er Jahren versteckte die USA <strong style="color:var(--gold)">1.000 Atombomben</strong> unter der Prärie. Am Minuteman Missile Memorial kannst du durch Glas in einen echten Raketensilos schauen. Erschreckend und faszinierend zugleich!</p>
+    </div>
+    <div class="sticky-progress" id="stickyProgress">
+      <div class="progress-dot active"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS GRID -->
+<div class="section-header" id="karten">
+  <p class="section-eyebrow reveal">Was du sehen musst</p>
+  <h2 class="section-title reveal">Die 6 größten<br>Highlights</h2>
+  <p class="section-subtitle reveal">Fahr mit der Maus über die Karten und entdecke mehr über jeden Ort.</p>
+</div>
+
+<div class="cards-grid">
+  <div class="card card-rushmore reveal">
+    <div class="card-bg">
+      <!-- SVG Mount Rushmore illustration -->
+      <svg class="card-icon" width="300" height="300" viewBox="0 0 300 300">
+        <path d="M30 280 L80 160 L100 180 L130 120 L160 160 L185 100 L220 150 L250 130 L270 280Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="card-overlay"></div>
+    <div class="card-content">
+      <span class="card-tag">Ikone</span>
+      <h3 class="card-title">Mount Rushmore</h3>
+      <p class="card-desc">Vier US-Präsidenten, 18 Meter hoch, in Granitfelsen gemeißelt. Das Mega-Kunstwerk war zwischen 1927 und 1941 im Bau – und ist bis heute sehr umstritten, weil es auf heiligem Lakota-Land steht.</p>
+    </div>
+  </div>
+  <div class="card card-badlands reveal" style="transition-delay:0.1s">
+    <div class="card-bg">
+      <svg class="card-icon" width="300" height="300" viewBox="0 0 300 300">
+        <path d="M0 280 L40 200 L60 220 L90 150 L120 200 L150 120 L180 180 L210 140 L240 200 L270 160 L300 220 L300 280Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="card-overlay"></div>
+    <div class="card-content">
+      <span class="card-tag">Natur</span>
+      <h3 class="card-title">Badlands National Park</h3>
+      <p class="card-desc">244.000 Hektar bizarre Felslandschaft. Millionen Jahre alte Fossilien stecken in den Steinen. Nachts siehst du hier den sternenklarsten Himmel in ganz Amerika!</p>
+    </div>
+  </div>
+  <div class="card card-wildlife reveal" style="transition-delay:0.2s">
+    <div class="card-bg">
+      <svg class="card-icon" width="300" height="200" viewBox="0 0 300 200">
+        <ellipse cx="150" cy="120" rx="80" ry="50" fill="white"/>
+        <circle cx="210" cy="80" r="30" fill="white"/>
+        <rect x="90" y="150" width="20" height="40" fill="white"/>
+        <rect x="130" y="155" width="20" height="40" fill="white"/>
+        <rect x="160" y="155" width="20" height="40" fill="white"/>
+        <rect x="200" y="155" width="20" height="40" fill="white"/>
+      </svg>
+    </div>
+    <div class="card-overlay"></div>
+    <div class="card-content">
+      <span class="card-tag">Wildtiere</span>
+      <h3 class="card-title">Custer State Park</h3>
+      <p class="card-desc">Eine der größten frei lebenden Bisonherden der Welt! Dazu Wapiti-Hirsche, Bergziegen und sogar freche Esel, die dein Auto anhalten und nach Snacks betteln.</p>
+    </div>
+  </div>
+  <div class="card card-deadwood reveal">
+    <div class="card-bg">
+      <svg class="card-icon" width="200" height="250" viewBox="0 0 200 250">
+        <rect x="70" y="50" width="60" height="100" fill="white"/>
+        <polygon points="70,50 100,10 130,50" fill="white"/>
+        <rect x="85" y="120" width="30" height="30" fill="rgba(255,255,255,0.5)"/>
+      </svg>
+    </div>
+    <div class="card-overlay"></div>
+    <div class="card-content">
+      <span class="card-tag">Geschichte</span>
+      <h3 class="card-title">Deadwood</h3>
+      <p class="card-desc">Die wildeste Stadt des Wilden Westens! Hier wurde 1876 der berühmte Revolverheld Wild Bill Hickok beim Pokern erschossen. Heute gibt es täglich Reenactments auf der Main Street.</p>
+    </div>
+  </div>
+  <div class="card card-crazy reveal" style="transition-delay:0.1s">
+    <div class="card-bg">
+      <svg class="card-icon" width="300" height="300" viewBox="0 0 300 300">
+        <path d="M80 280 L100 200 L130 220 L150 150 L180 200 L220 180 L250 220 L280 280Z" fill="white"/>
+        <circle cx="150" cy="120" r="40" fill="none" stroke="white" stroke-width="8"/>
+      </svg>
+    </div>
+    <div class="card-overlay"></div>
+    <div class="card-content">
+      <span class="card-tag">Kontroverse</span>
+      <h3 class="card-title">Crazy Horse Memorial</h3>
+      <p class="card-desc">Wenn es fertig ist, wird es die GRÖSSTE Skulptur der Welt sein – noch größer als Mount Rushmore! Seit 1948 wird gesprengt und gemeißelt. Das Projekt ist spannend und umstritten zugleich.</p>
+    </div>
+  </div>
+  <div class="card card-caves reveal" style="transition-delay:0.2s">
+    <div class="card-bg">
+      <svg class="card-icon" width="300" height="300" viewBox="0 0 300 300">
+        <path d="M50 280 C50 280 30 200 80 160 C120 130 100 80 150 60 C200 80 180 130 220 160 C270 200 250 280 250 280Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="card-overlay"></div>
+    <div class="card-content">
+      <span class="card-tag">Unterirdisch</span>
+      <h3 class="card-title">Wind Cave & Jewel Cave</h3>
+      <p class="card-desc">Unter den Black Hills versteckt sich ein riesiges Labyrinth aus Höhlen! Die Jewel Cave ist die drittlängste Höhle der WELT mit 190+ km erkundeten Gängen. Absolute Dunkelheit garantiert!</p>
+    </div>
+  </div>
+</div>
+
+<!-- HISTORY TIMELINE -->
+<section class="timeline-section" id="history">
+  <div class="section-header" style="padding-top:0">
+    <p class="section-eyebrow reveal">Zeitreise</p>
+    <h2 class="section-title reveal">Geschichte zum<br>Anfassen</h2>
+    <p class="section-subtitle reveal">Von der Eiszeit bis heute – South Dakota hat Millionen Jahre zu erzählen.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-dot">🦣</div>
+      <div class="timeline-body">
+        <div class="timeline-year">vor 140.000 Jahren</div>
+        <h3>Die Mammut-Falle in Hot Springs</h3>
+        <p>Ein Sinkhole (ein Erdloch mit Wasser) lockte Mammuts an – aber die glatten Wände ließen sie nicht mehr raus. Heute sind 61 Mammut-Skelette ausgegraben. Du kannst den Paläontologen live bei der Arbeit zuschauen!</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.15s">
+      <div class="timeline-dot">🪶</div>
+      <div class="timeline-body">
+        <div class="timeline-year">1868</div>
+        <h3>Der Vertrag von Fort Laramie</h3>
+        <p>Die USA versprachen den Lakota-Indianern für immer die Black Hills. Nur 6 Jahre später brach die Regierung das Versprechen, als Gold gefunden wurde. Dieser Vertragsbruch ist bis heute nicht vollständig aufgelöst.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.3s">
+      <div class="timeline-dot">⛏️</div>
+      <div class="timeline-body">
+        <div class="timeline-year">1874–1880er</div>
+        <h3>Der Goldrausch in den Black Hills</h3>
+        <p>General Custer fand Gold – und sofort strömten tausende Goldsucher in das Gebiet. Städte wie Deadwood entstanden über Nacht. Auch Wild Bill Hickok und Calamity Jane kamen hier her.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.45s">
+      <div class="timeline-dot">🗿</div>
+      <div class="timeline-body">
+        <div class="timeline-year">1927–1941</div>
+        <h3>Mount Rushmore entsteht</h3>
+        <p>Mit Dynamit und Meißeln arbeiteten 400 Männer daran, vier Präsidenten in den Berg zu sprengen. 450.000 Tonnen Stein wurden weggesprengt – und niemand wurde dabei getötet!</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.6s">
+      <div class="timeline-dot">💣</div>
+      <div class="timeline-body">
+        <div class="timeline-year">1960–1991</div>
+        <h3>1.000 Atomraketen unter der Prärie</h3>
+        <p>Im Kalten Krieg versteckte die USA Atomraketen direkt unter den Feldern. Kinder spielten, Kühe grasten – und direkt darunter warteten Raketen auf den Abschussbefehl. Gruselig real.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal" style="transition-delay:0.75s">
+      <div class="timeline-dot">🌟</div>
+      <div class="timeline-body">
+        <div class="timeline-year">2016</div>
+        <h3>Die „Dignity" Skulptur am Missouri</h3>
+        <p>Eine 15 Meter hohe Statue einer Lakota-Frau wurde am Missouri River aufgestellt. Sie hält einen Sternenquilt in den Wind – ein Symbol für Stärke, Überleben und die Würde der indigenen Völker.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOD SECTION -->
+<section class="food-section" id="food">
+  <div class="section-header" style="padding-top:0">
+    <p class="section-eyebrow reveal" style="color:var(--gold)">Typisch South Dakota</p>
+    <h2 class="section-title reveal">Was du unbedingt<br>probieren solltest</h2>
+    <p class="section-subtitle reveal">← Zieh die Karten und entdecke die lokalen Spezialitäten!</p>
+  </div>
+  <div class="food-scroll" id="foodScroll">
+    <div class="food-card">
+      <div class="food-emoji">🍖</div>
+      <div class="food-origin">Offizieller Snack des Staates</div>
+      <h3 class="food-name">Chislic</h3>
+      <p class="food-desc">Kleine Fleischwürfel am Zahnstocher – frittiert oder gegrillt. Ursprünglich von russischen Einwanderern. Seit 2018 offiziell der Snack von South Dakota!</p>
+    </div>
+    <div class="food-card">
+      <div class="food-emoji">🥧</div>
+      <div class="food-origin">Offizielles Staatsdessert</div>
+      <h3 class="food-name">Kuchen</h3>
+      <p class="food-desc">Kein Schreibfehler! „Kuchen" heißt das Dessert wirklich so – von deutschen Einwanderern gebracht. Ein weicher Hefeteig mit Vanillecreme und Obst drauf.</p>
+    </div>
+    <div class="food-card">
+      <div class="food-emoji">🫓</div>
+      <div class="food-origin">Offizielles Staatsbrot</div>
+      <h3 class="food-name">Frybread / Gabubu</h3>
+      <p class="food-desc">Teig in heißem Fett gebacken. Entstand in einer harten Zeit, als Indianer nur Mehl und Schmalz als Ration bekamen. Heute ein Symbol der Widerstandskraft.</p>
+    </div>
+    <div class="food-card">
+      <div class="food-emoji">🌮</div>
+      <div class="food-origin">Traditionell</div>
+      <h3 class="food-name">Indian Tacos</h3>
+      <p class="food-desc">Frybread als Basis, drauf Bisonfleisch, Bohnen, Käse und Salat. Riesig, herzhaft und lecker. Auf jedem Powwow ein Muss!</p>
+    </div>
+    <div class="food-card">
+      <div class="food-emoji">🫐</div>
+      <div class="food-origin">Lakota Sioux</div>
+      <h3 class="food-name">Wojapi</h3>
+      <p class="food-desc">Eine dicke Sauce aus wilden Beeren (oft Chokecherries). Wird zum Dippen von Frybread gegessen. Süß und ein bisschen sauer – schmeckt wie Heimat.</p>
+    </div>
+    <div class="food-card">
+      <div class="food-emoji">🐟</div>
+      <div class="food-origin">Missouri River</div>
+      <h3 class="food-name">Frittierter Walleye</h3>
+      <p class="food-desc">Der Walleye (Glasaugenbarsch) ist der Staatsfisch von South Dakota. Frittiert mit Pommes ist er ein absoluter Klassiker in den Fischrestaurants am Missouri.</p>
+    </div>
+    <div class="food-card">
+      <div class="food-emoji">🥐</div>
+      <div class="food-origin">Tschechische Einwanderer</div>
+      <h3 class="food-name">Kolaches</h3>
+      <p class="food-desc">Kleines, weiches Gebäck mit Fruchtfüllung. Die Tschechische Community in Tabor hält diese Tradition noch immer lebendig – bei den Czech Days jedes Jahr.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE PLANNER -->
+<section class="route-section" id="route">
+  <div class="section-header" style="padding-top:0">
+    <p class="section-eyebrow reveal">Dein Abenteuer</p>
+    <h2 class="section-title reveal">Der perfekte<br>7-Tage-Roadtrip</h2>
+    <p class="section-subtitle reveal">Klick auf einen Tag und sieh, was dich erwartet!</p>
+  </div>
+  <div class="route-days">
+    <div class="route-day active reveal" onclick="showDay(0)" style="transition-delay:0s">
+      <div class="day-num">1</div>
+      <div class="day-label">Tag</div>
+      <div class="day-icon">🏜️</div>
+    </div>
+    <div class="route-day reveal" onclick="showDay(1)" style="transition-delay:0.05s">
+      <div class="day-num">2</div>
+      <div class="day-label">Tag</div>
+      <div class="day-icon">💣</div>
+    </div>
+    <div class="route-day reveal" onclick="showDay(2)" style="transition-delay:0.1s">
+      <div class="day-num">3</div>
+      <div class="day-label">Tag</div>
+      <div class="day-icon">🗿</div>
+    </div>
+    <div class="route-day reveal" onclick="showDay(3)" style="transition-delay:0.15s">
+      <div class="day-num">4</div>
+      <div class="day-label">Tag</div>
+      <div class="day-icon">🪨</div>
+    </div>
+    <div class="route-day reveal" onclick="showDay(4)" style="transition-delay:0.2s">
+      <div class="day-num">5</div>
+      <div class="day-label">Tag</div>
+      <div class="day-icon">🦣</div>
+    </div>
+    <div class="route-day reveal" onclick="showDay(5)" style="transition-delay:0.25s">
+      <div class="day-num">6</div>
+      <div class="day-label">Tag</div>
+      <div class="day-icon">🤠</div>
+    </div>
+    <div class="route-day reveal" onclick="showDay(6)" style="transition-delay:0.3s">
+      <div class="day-num">7</div>
+      <div class="day-label">Tag</div>
+      <div class="day-icon">✈️</div>
+    </div>
+  </div>
+  <div id="routeDetail" class="route-detail visible"></div>
+</section>
+
+<!-- CLIMATE -->
+<section class="climate-section" id="klima">
+  <div class="section-header" style="padding-top:0">
+    <p class="section-eyebrow reveal">Wann soll ich fahren?</p>
+    <h2 class="section-title reveal">Das Klima in<br>South Dakota</h2>
+    <p class="section-subtitle reveal">South Dakota hat vier extreme Jahreszeiten. Die beste Reisezeit ist Frühling und Herbst.</p>
+  </div>
+  <div class="climate-grid">
+    <div class="climate-card reveal">
+      <h3 class="climate-city">Rapid City</h3>
+      <div class="climate-region">☁️ Westen – Black Hills</div>
+      <div class="temp-bar">
+        <div class="temp-label">🌞 Sommer-Höchst: 85°F (30°C)</div>
+        <div class="temp-track"><div class="temp-fill" style="--w:85%"></div></div>
+      </div>
+      <div class="temp-bar">
+        <div class="temp-label">❄️ Winter-Min: 13°F (-11°C)</div>
+        <div class="temp-track"><div class="temp-fill" style="--w:25%; background: linear-gradient(to right, #1a3a5c, #4a8ab5)"></div></div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--light-text);margin-top:12px;line-height:1.6">Die wärmsten Winter im Staat! Die Black Hills schützen vor dem eisigen Präriewind.</p>
+    </div>
+    <div class="climate-card reveal" style="transition-delay:0.1s">
+      <h3 class="climate-city">Pierre</h3>
+      <div class="climate-region">🌾 Mitte – Hauptstadt</div>
+      <div class="temp-bar">
+        <div class="temp-label">🌞 Sommer-Höchst: 89°F (32°C)</div>
+        <div class="temp-track"><div class="temp-fill" style="--w:89%"></div></div>
+      </div>
+      <div class="temp-bar">
+        <div class="temp-label">❄️ Winter-Min: 10°F (-12°C)</div>
+        <div class="temp-track"><div class="temp-fill" style="--w:20%; background: linear-gradient(to right, #1a3a5c, #4a8ab5)"></div></div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--light-text);margin-top:12px;line-height:1.6">Heißer Sommer und kalter Winter. Der Missouri River beeinflusst das Klima stark.</p>
+    </div>
+    <div class="climate-card reveal" style="transition-delay:0.2s">
+      <h3 class="climate-city">Aberdeen</h3>
+      <div class="climate-region">🌻 Nordosten</div>
+      <div class="temp-bar">
+        <div class="temp-label">🌞 Sommer-Höchst: 83°F (28°C)</div>
+        <div class="temp-track"><div class="temp-fill" style="--w:78%"></div></div>
+      </div>
+      <div class="temp-bar">
+        <div class="temp-label">❄️ Winter-Min: 2°F (-17°C)</div>
+        <div class="temp-track"><div class="temp-fill" style="--w:12%; background: linear-gradient(to right, #1a3a5c, #4a8ab5)"></div></div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--light-text);margin-top:12px;line-height:1.6">Sehr kalt im Winter! Dafür sehr fruchtbar – viel Landwirtschaft und Sonnenblumenfelder.</p>
+    </div>
+    <div class="climate-card reveal" style="transition-delay:0.3s">
+      <h3 class="climate-city">Sioux Falls</h3>
+      <div class="climate-region">🏙️ Südosten – Größte Stadt</div>
+      <div class="temp-bar">
+        <div class="temp-label">🌞 Sommer-Höchst: 84°F (29°C)</div>
+        <div class="temp-track"><div class="temp-fill" style="--w:82%"></div></div>
+      </div>
+      <div class="temp-bar">
+        <div class="temp-label">❄️ Winter-Min: 7°F (-14°C)</div>
+        <div class="temp-track"><div class="temp-fill" style="--w:18%; background: linear-gradient(to right, #1a3a5c, #4a8ab5)"></div></div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--light-text);margin-top:12px;line-height:1.6">Die urbane, lebendige Seite South Dakotas. Der Falls Park mit seinen Wasserfällen ist ein Muss!</p>
+    </div>
+  </div>
+
+  <div style="background:white;border-radius:20px;padding:32px;margin-top:32px;box-shadow:0 4px 24px rgba(0,0,0,0.06)" class="reveal">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--sky);margin-bottom:16px">🗓️ Wann ist die beste Reisezeit?</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <div style="padding:20px;background:#f7f2e8;border-radius:12px">
+        <strong style="color:var(--pine);font-size:0.9rem">✅ BESTE ZEIT</strong>
+        <p style="margin-top:8px;font-size:0.9rem;color:var(--text);line-height:1.6">Mai & September–Oktober. Angenehme Temperaturen, weniger Touristen, günstigere Preise und bunte Laubfärbung im Herbst.</p>
+      </div>
+      <div style="padding:20px;background:#fff8ec;border-radius:12px">
+        <strong style="color:var(--prairie);font-size:0.9rem">⚠️ HOCHSAISON</strong>
+        <p style="margin-top:8px;font-size:0.9rem;color:var(--text);line-height:1.6">Juni–August. Super Wetter, alles geöffnet. Aber viele Touristen und beim Sturgis Rally im August explodieren die Hotelpreise!</p>
+      </div>
+      <div style="padding:20px;background:#f0f4f8;border-radius:12px">
+        <strong style="color:var(--sky);font-size:0.9rem">❄️ WINTER</strong>
+        <p style="margin-top:8px;font-size:0.9rem;color:var(--text);line-height:1.6">Dezember–März. Kalt und abgelegen, aber günstig. Für Wintersport in den Black Hills mit 1.500 km Schneemobil-Strecken!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="tips-section" id="tipps">
+  <div class="section-header" style="padding-top:0">
+    <p class="section-eyebrow reveal" style="color:var(--gold)">Praktische Infos</p>
+    <h2 class="section-title reveal">Tipps für deinen Trip</h2>
+    <p class="section-subtitle reveal">Damit nichts schiefläuft und du das Beste erlebst!</p>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card reveal">
+      <div class="tip-num">01</div>
+      <h3>🚗 Du brauchst ein Auto</h3>
+      <p>Es gibt fast keine Busse oder Züge. Ohne Mietwagen kommst du nicht weit. Die gute Nachricht: Unbegrenzte Kilometer sind meist dabei und es gibt keine Mautstraßen!</p>
+    </div>
+    <div class="tip-card reveal" style="transition-delay:0.1s">
+      <div class="tip-num">02</div>
+      <h3>📏 Achtung Tunnel-Größe!</h3>
+      <p>Die Tunnel auf dem Iron Mountain Road und Needles Highway sind SEHR eng. Wohnmobile und große Anhänger passen nicht durch! Engste Stelle: nur 2,4 Meter breit.</p>
+    </div>
+    <div class="tip-card reveal" style="transition-delay:0.2s">
+      <div class="tip-num">03</div>
+      <h3>🦬 Sicherheitsabstand zu Bisons!</h3>
+      <p>Bisons sind schneller als Pferde und sehr unberechenbar. Mindestabstand: 100 Yards (ca. 90 Meter). Steig NIEMALS aus dem Auto aus wenn ein Bison nah ist!</p>
+    </div>
+    <div class="tip-card reveal">
+      <div class="tip-num">04</div>
+      <h3>🎟️ Minuteman Tickets buchen</h3>
+      <p>Die Führung durch den Atomraketen-Bunker muss MONATE im Voraus gebucht werden! Ohne Vorabbuchung kommst du nur bis ans Silo, aber nicht in den Bunker rein.</p>
+    </div>
+    <div class="tip-card reveal" style="transition-delay:0.1s">
+      <div class="tip-num">05</div>
+      <h3>🌙 Sternenhimmel genießen</h3>
+      <p>Die Badlands haben kaum Lichtverschmutzung. Jedes Jahr gibt es ein Astronomy Festival. Auch ohne Festival siehst du hier mehr Sterne als in deinem ganzen Leben sonst!</p>
+    </div>
+    <div class="tip-card reveal" style="transition-delay:0.2s">
+      <div class="tip-num">06</div>
+      <h3>🙏 Respekt für indigene Kultur</h3>
+      <p>Die Black Hills sind für die Lakota heiliges Land. Besuche Museen wie das Aktá Lakota, lerne ihre Geschichte kennen und berühre NIEMALS die bunten Gebetstücher an Bäumen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>★ South Dakota</strong>
+  <p>Dieser Reiseguide basiert auf historischen und geographischen Fakten. Alle Angaben ohne Gewähr.</p>
+  <p style="margin-top:8px">Für den Unterricht der Klasse 8 – Erkunde Amerika! 🇺🇸</p>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+  function animRing() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); }
+  animRing();
+
+  // NAV
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 80); });
+
+  // STARS
+  const particles = document.getElementById('particles');
+  for(let i=0;i<80;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*2}s`;
+    particles.appendChild(s);
+  }
+
+  // SCROLL REVEAL
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+  // CLIMATE BARS
+  const climateObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.querySelectorAll('.temp-fill').forEach(bar => bar.style.width = bar.style.getPropertyValue('--w') || bar.getAttribute('style').match(/--w:([^;]+)/)?.[1] || '0'); }
+    });
+  }, {threshold: 0.3});
+  document.querySelectorAll('.climate-card').forEach(c => climateObs.observe(c));
+
+  // Fix temp bars
+  document.querySelectorAll('.temp-fill').forEach(bar => {
+    const w = bar.style.cssText.match(/--w:([^;]+)/)?.[1];
+    if(w) bar.dataset.width = w;
+  });
+  const climateObs2 = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.querySelectorAll('.temp-fill').forEach(bar => { if(bar.dataset.width) bar.style.width = bar.dataset.width; }); }
+    });
+  }, {threshold: 0.3});
+  document.querySelectorAll('.climate-card').forEach(c => climateObs2.observe(c));
+
+  // STICKY SCROLL STEPS
+  const stickySection = document.querySelector('.sticky-section');
+  const steps = document.querySelectorAll('.sticky-step');
+  const dots = document.querySelectorAll('.progress-dot');
+  window.addEventListener('scroll', () => {
+    const rect = stickySection.getBoundingClientRect();
+    const totalH = stickySection.offsetHeight - window.innerHeight;
+    const scrolled = Math.max(0, -rect.top);
+    const progress = Math.min(scrolled / totalH, 1);
+    const stepIndex = Math.min(Math.floor(progress * steps.length), steps.length - 1);
+    steps.forEach((s,i) => s.classList.toggle('active', i===stepIndex));
+    dots.forEach((d,i) => d.classList.toggle('active', i===stepIndex));
+  });
+
+  // FOOD SCROLL DRAG
+  const fs = document.getElementById('foodScroll');
+  let isDown=false, startX, scrollLeft;
+  fs.addEventListener('mousedown', e => { isDown=true; fs.style.cursor='grabbing'; startX=e.pageX-fs.offsetLeft; scrollLeft=fs.scrollLeft; });
+  fs.addEventListener('mouseleave',()=>{isDown=false;fs.style.cursor='grab';});
+  fs.addEventListener('mouseup',()=>{isDown=false;fs.style.cursor='grab';});
+  fs.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-fs.offsetLeft;fs.scrollLeft=scrollLeft-(x-startX)*1.5;});
+
+  // ROUTE PLANNER
+  const routeData = [
+    { title:"Tag 1 – Ankunft & Badlands 🏜️", text:"Flug nach Rapid City, Mietwagen holen und ab auf die I-90 Richtung Osten. Erste Station: Wall Drug Store – kostenloser Kaffee für 5 Cent, riesiger Dinosaurier und jede Menge Kitschwaren. Danach ab in den Badlands National Park! Am späten Nachmittag den Notch Trail wandern – Holzleiter, Felsklippen und ein atemberaubender Ausblick. Übernachtung in Wall.", stops:["Rapid City Airport","Wall Drug Store","Badlands Loop Road","Notch Trail","Pinnacles Overlook"] },
+    { title:"Tag 2 – Atomraketen & Black Hills 💣", text:"Früh morgens zur Minuteman Missile National Historic Site. Durch das Glas in einen echten Raketensilo schauen und (wenn vorgebucht) in den Bunker steigen wo die Offiziere auf den Abschussbefehl warteten. Danach Fahrt nach Westen in die kühlen Black Hills. Quartier in Hill City oder Keystone beziehen.", stops:["Minuteman Visitor Center","Delta-09 Silo","Delta-01 Bunker (nur mit Reservierung)","Fahrt in die Black Hills","Keystone / Hill City"] },
+    { title:"Tag 3 – Präsidenten & Bisons 🗿", text:"Morgens am Mount Rushmore die vier Präsidenten-Gesichter bestaunen und dabei die Geschichte dahinter kennenlernen. Wer war Gutzon Borglum? Und warum ist das Monument so umstritten? Danach über die Iron Mountain Road fahren – 314 Kurven, Holzbrücken, die sich wie ein Korkenzieher aufwickeln, und drei Tunnel, durch die du Mount Rushmore siehst wie ein Bild im Rahmen. Am Abend auf der Wildlife Loop Road Bisons beobachten.", stops:["Mount Rushmore Memorial","Carver's Café (Eis wie Jefferson)","Iron Mountain Road (Hwy 16A)","Pigtail Bridges","Custer State Park Wildlife Loop"] },
+    { title:"Tag 4 – Nadeln & Höhlen 🪨", text:"Auf dem Needles Highway fahren – besonders der Needles Eye Tunnel ist unglaublich eng. Dann am wunderschönen Sylvan Lake picknicken oder Paddeln (der Lake war Filmkulisse für National Treasure 2!). Nachmittags tief in die Erde: Wind Cave oder Jewel Cave führen durch riesige Höhlensysteme voller seltsamer Wabenstrukturen.", stops:["Needles Highway (Hwy 87)","Needles Eye Tunnel","Sylvan Lake","Wind Cave National Park","Jewel Cave (3. längste Höhle weltweit)"] },
+    { title:"Tag 5 – Mammuts & Crazy Horse 🦣", text:"Fahrt nach Hot Springs und dort live bei echten Paläontologen zuschauen wie sie Mammut-Knochen freilegen. 61 Skelette wurden bisher gefunden! Danach Besuch beim Crazy Horse Memorial – die größte Skulptur der Welt, noch im Bau. Das Museum erklärt die Lakota-Kultur ausführlich und zeigt eine wichtige Gegenperspektive zu Mount Rushmore.", stops:["The Mammoth Site Hot Springs","Crazy Horse Memorial","Indian Museum of North America","Laughing Water Restaurant","Highway 385 Scenic Drive"] },
+    { title:"Tag 6 – Wilder Westen & Wasserfälle 🤠", text:"Nördlich nach Deadwood – der berüchtigtsten Stadt des Wilden Westens. Auf der Main Street werden täglich Schießereien nachgespielt. Auf dem Mount Moriah Cemetery liegen Wild Bill Hickok und Calamity Jane begraben. Am Nachmittag in den Spearfish Canyon: 300 Meter hohe Kalkfelsen, Wasserfall-Wanderungen und traumhafte Herbstfarben.", stops:["Deadwood Main Street","Mount Moriah Cemetery","Adams Museum","Spearfish Canyon Byway","Roughlock Falls & Spearfish Falls"] },
+    { title:"Tag 7 – Abschied & letzte Eindrücke ✈️", text:"Letzter Morgen in den Black Hills – vielleicht noch ein Chislic-Frühstück? In Hill City oder Keystone gibt es tolle lokale Läden für Souvenirs. Dann Fahrt zum Rapid City Airport. Optional: Ein kleiner Abstecher nach Wyoming zum Devils Tower – einem gigantischen Felsmonolithen, der für den Film 'Unheimliche Begegnung der dritten Art' berühmt ist. Safe Travels!", stops:["Hill City Souvenirs","Fudge-Shops Keystone","Optional: Devils Tower Wyoming","Rapid City Airport","Schöne Erinnerungen 🌟"] },
+  ];
+
+  function showDay(i) {
+    document.querySelectorAll('.route-day').forEach((d,j) => d.classList.toggle('active', i===j));
+    const detail = document.getElementById('routeDetail');
+    const d = routeData[i];
+    detail.innerHTML = `<h3>${d.title}</h3><p>${d.text}</p><div class="route-stops">${d.stops.map(s=>`<span class="stop-badge">📍 ${s}</span>`).join('')}</div>`;
+    detail.className = 'route-detail visible';
+  }
+  showDay(0);
+</script>
+</body>
+</html>
