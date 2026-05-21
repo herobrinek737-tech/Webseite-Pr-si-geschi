@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Die Amerikanische Revolution (1776)</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #c53030;
+            --bg-color: #f7fafc;
+            --text-color: #2d3748;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Die Amerikanische Revolution</h1>
+        <p>Der Kampf um Freiheit und die Geburt einer Nation (1775-1783) [cite: 133, 134]</p>
+        <p><small>Ein Referat von Lukas & Janus [cite: 135]</small></p>
+    </header>
+
+    <div class="container">
+        
+        <section class="animate-on-scroll">
+            <h2>1. Ursachen & Spannungen</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Wirtschaft</h3>
+                    <p>Nach dem Siebenjährigen Krieg gegen Frankreich war Großbritannien hoch verschuldet. Die Kolonien sollten die Last durch neue Steuern mittragen[cite: 145].</p>
+                </div>
+                <div class="card">
+                    <h3>Politik & Ideologie</h3>
+                    <p>Unter dem Motto "No taxation without representation" forderten die Siedler ein Mitspracherecht im Parlament, was London jedoch strikt verweigerte[cite: 147, 148]. Zudem verbreiteten sich durch die Aufklärung Ideen von Naturrechten, Freiheit und Volkssouveränität in den 13 Kolonien[cite: 150].</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="animate-on-scroll">
+            <h2>2. Der Funke: Boston Tea Party (1773)</h2>
+            <p>Im Dezember 1773 verkleideten sich Kolonisten als Indianer und warfen Teeladungen der East India Company ins Meer[cite: 152].</p>
+            <ul>
+                <li><strong>Protestgrund:</strong> Sie demonstrierten gegen die Monopolstellung britischen Tees und ungerechte Zölle[cite: 153].</li>
+                <li><strong>Folge:</strong> London reagierte mit den "Intolerable Acts" (drakonischen Strafen), welche den Widerstand der Kolonisten erst recht festigten[cite: 154, 155].</li>
+            </ul>
+        </section>
+
+        <section class="animate-on-scroll">
+            <h2>3. Die Unabhängigkeitserklärung (1776)</h2>
+            <p>Am 4. Juli 1776 proklamierte der Kontinentalkongress offiziell die Trennung von Großbritannien[cite: 169].</p>
+            <p><em>"Alle Menschen sind gleich geschaffen..."</em> [cite: 168]</p>
+            <p>Das Dokument begründete die staatliche Souveränität auf Basis von unveräußerlichen Menschenrechten. Dazu gehörten das Recht auf Leben, Freiheit & Glück sowie das Widerstandsrecht gegen Tyrannei[cite: 170, 171].</p>
+        </section>
+
+        <section class="animate-on-scroll">
+            <h2>4. Die Schlüsselfiguren</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>George Washington</h3>
+                    <p><strong>Der General & Staatsmann:</strong> Er war der Oberbefehlshaber der Kontinentalarmee im Unabhängigkeitskrieg[cite: 227, 228]. Er gilt als "Vater des Vaterlandes", dessen militärisches Geschick und Standhaftigkeit die Revolution in Krisenzeiten am Leben hielten[cite: 230]. 1789 wurde er zum ersten Präsidenten der Vereinigten Staaten gewählt[cite: 231].</p>
+                </div>
+                <div class="card">
+                    <h3>Thomas Jefferson</h3>
+                    <p><strong>Der Denker & Autor:</strong> Jefferson war der Hauptverfasser der Unabhängigkeitserklärung[cite: 233, 234]. Als begabter Anwalt und Philosoph der Aufklärung formulierte er die moralischen und rechtlichen Grundlagen der neuen Nation[cite: 235]. Später wurde er der 3. Präsident der USA und war ein großer Förderer der Wissenschaft und Bildung[cite: 237, 238].</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="animate-on-scroll">
+            <h2>5. Der Unabhängigkeitskrieg</h2>
+            <p><strong>Saratoga (1777):</strong> Der entscheidende Wendepunkt. Dieser Sieg der Kolonisten überzeugte Frankreich, offiziell als Verbündeter in den Krieg einzutreten. Ohne die französische Marine und Truppen wäre der Sieg gegen das Empire kaum möglich gewesen[cite: 240, 241, 242, 243, 244].</p>
+            <p><strong>Yorktown (1781):</strong> Die letzte große Schlacht. Britische Truppen unter Cornwallis wurden von US- und französischen Kräften eingekesselt und zur Kapitulation gezwungen. Dies markierte das Ende der aktiven Kampfhandlungen[cite: 245, 246, 247, 248].</p>
+            
+            <h3>Die Kontrahenten im Vergleich</h3>
+            <table>
+                <tr>
+                    <th>Merkmal</th>
+                    <th>Kontinentalarmee (USA)</th>
+                    <th>Britisches Empire</th>
+                </tr>
+                <tr>
+                    <td>Stärke</td>
+                    <td>Ortskenntnis & Hohe Motivation [cite: 250]</td>
+                    <td>Bestmögliche Ausbildung & Ausrüstung [cite: 250]</td>
+                </tr>
+                <tr>
+                    <td>Ressourcen</td>
+                    <td>Knapp (Nahrung, Munition) [cite: 250]</td>
+                    <td>Weltweite Seeherrschaft [cite: 250]</td>
+                </tr>
+                <tr>
+                    <td>Strategie</td>
+                    <td>Guerilla-Taktik & Verteidigung [cite: 250]</td>
+                    <td>Konventionelle Feldschlachten [cite: 250]</td>
+                </tr>
+                <tr>
+                    <td>Führung</td>
+                    <td>Inspiriert durch G. Washington [cite: 250]</td>
+                    <td>Bürokratisch aus London gesteuert [cite: 250]</td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="animate-on-scroll">
+            <h2>6. Die Geburt der Demokratie & Fazit</h2>
+            <p>1787 wurde die Verfassung verabschiedet – die älteste noch geltende geschriebene Verfassung der Welt, die die Gewaltenteilung einführte[cite: 252, 253, 254].</p>
+            <p><strong>Das Erbe der Revolution:</strong> Sie führte zur Gründung der ersten modernen Demokratie und diente als Vorbild für die Französische Revolution 1789. Aber es gab auch Schattenseiten: Die Sklaverei blieb bestehen, und Frauen sowie Native Americans blieben weiterhin rechtlos[cite: 255, 256, 257].</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Vielen Dank für eure Aufmerksamkeit! [cite: 258]</p>
+        <p><small>Habt ihr noch Fragen zur Revolution oder den Personen? [cite: 259]</small></p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-on-scroll').forEach((section) => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
